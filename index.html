@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+  </head>
+  <body>
+    <main>
+      <form action="./success.html" id="form">
+        <h1>Stay updated!</h1>
+        <p class="subheading">Join 60,000+ product managers receiving monthly updates on:</p>
+
+        <p class="list">Product discovery and building what matters</p>
+        <p class="list">Measuring to ensure updates are a success</p>
+        <p class="list">And much more!</p>
+
+        <div class="label__grouping">
+          <label for="email">Email address</label>
+          <p class="hide" id="invalid">Valid email required</p>
+        </div>
+
+        <input type="text" name="email" id="email" placeholder="email@company.com" autocomplete="off" />
+        <input id="submit" onsubmit="handleSubmit(e)" type="submit" value="Subscribe to monthly newsletter" />
+      </form>
+
+      <figure>
+        <picture>
+          <source media="(max-width:675px)" srcset="./assets/images/illustration-sign-up-mobile.svg">
+          <img src="./assets/images/illustration-sign-up-desktop.svg" alt="sign-up-illustration" />
+        </picture>
+      </figure>
+    </main>
+ 
+    <footer class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a href="#">Elijah Littell-Sivley</a>.
+    </footer>
+
+    <script>
+      const form = document.getElementById("form");
+      const inputEle = document.getElementById("email");
+
+      form.addEventListener("submit", (e) => {
+        const email = new FormData(event.target).get("email");
+
+        const re =
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const isValidEmail = re.test(String(email).toLowerCase());
+        const invalid = document.getElementById("invalid");
+
+        if (isValidEmail) {
+          localStorage.setItem("email", email);
+          document.getElementById("email").value = "";
+
+          invalid.className = "hide";
+          inputEle.classList.remove("input_invalid");
+        } else {
+          invalid.className = "show";
+          inputEle.className = "input_invalid";
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>
